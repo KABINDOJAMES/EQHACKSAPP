@@ -2,6 +2,11 @@
 This is a platform whereby victims and users will be getting help by opening online tickets and advisors will be getting in touch with them through the contact details they give out.
 > ## Steps to run the project are provided below
 
+###LANDING PAGE
+More images available on the demo-images folder.
+![landing-page](https://github.com/KABINDOJAMES/EQHACKSAPP/assets/90185274/1a117828-f668-40ec-bbb8-8cbc7400d48e)
+
+
 ## Steps To Run The Project
 > ## If you need any help, you can reach me at jameskalusimeon@gmail.com
 The steps below make an assumption that you have:
