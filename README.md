@@ -3,6 +3,7 @@ This is a platform whereby victims and users will be getting help by opening onl
 > ## Steps to run the project are provided below
 
 ###LANDING PAGE
+
 More images available on the demo-images folder.
 ![landing-page](https://github.com/KABINDOJAMES/EQHACKSAPP/assets/90185274/1a117828-f668-40ec-bbb8-8cbc7400d48e)
 
