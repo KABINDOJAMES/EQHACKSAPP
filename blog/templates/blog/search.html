@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <title>search results for {{ query }}</title>
+</head>
+<body>
+
+<!-- Navbar Section -->
+<section>
+    {% include 'core/navbar.html' %}
+</section>
+<!-- Navbar Section End -->
+
+<!-- content body -->
+<section id="body">
+   
+    <div class="container">
+        <h1 class="text-center">Search results for {{ query }}</h1>
+        
+        <div class="container text-center">
+          <div class="col-sm-4 rounded">
+            {% if messages %}
+            <ul class="list-group">
+             {% for message in messages %}
+             <li class="list-group-item active">{{message}}</li>
+             {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+      </div>
+      
+        <div class="row">
+          <div class="col-sm-6">
+           <p>{{ posts_count }} posts found.</p>
+            <ul>
+              {% for post in posts %}
+             <li>
+              <a class="text-decoration-none" style="color:#0000A3" onMouseOver="this.style.color='#000000'"
+              onMouseOut="this.style.color='#0000A3'" href="{% url 'posts-detail' post.slug %}"><p>{{ post.title | safe }}</p></a>
+             </li>
+
+             {% empty %}
+
+             <p>No posts found</p>
+
+            {% endfor %}
+            </ul>
+          </div>
+            
+          <div class="col-sm-6">
+              <p>{{ newsarticles_count }} news articles found.</p>
+              <ul>
+                 {% for newsarticle in newsarticles %}
+                  <li>
+                    <a class="text-decoration-none" style="color:#0000A3" onMouseOver="this.style.color='#000000'"
+                    onMouseOut="this.style.color='#0000A3'" href="{% url 'news-detail' newsarticle.slug %}"><p>{{ newsarticle.title | safe }}</p></a>
+                  </li>
+
+                  {% empty %}
+
+                  <p>No news articles found</p>
+
+                 {% endfor %}
+              </ul>
+          </div>                    
+        </div>
+        {% if Empty == True %}
+        <hr>
+        <div class="row"> 
+          <h2 class="text-center">Here are our latest posts</h2>
+          {% for recommendedpost in recommendedposts %}
+          <div class="col-sm-3 card border"  style="background-color:#000000;" onMouseOver="this.style.backgroundColor='#0000A3'"
+                    onMouseOut="this.style.backgroundColor='#000000'">
+                        <a class="text-decoration-none" href="{% url 'posts-detail' recommendedpost.slug %}">
+                          <p></p>
+                          {% if recommendedpost.image %}
+                          <img height="250" class="card-img-top" alt="{{ recommendedpost.alt }}" src="{{ recommendedpost.image.url }}"/>
+                         {% else %}
+                         <img height="300" class="card-img-top" alt="{{ recommendedpost.alt }}" src="{{ recommendedpost.image_url }}"/>
+                         {% endif %}
+                          <div class="card-body" style="color:white">
+                            <p class="fs-5" style="color:yellow">{{ recommendedpost.title }}</p>
+                            <p style="color:yellow">Updated {{ recommendedpost.updated_on | timesince }} ago.</p>
+                            <p class="card-text" style="color:white">{{ recommendedpost.description |truncatewords_html:10 |safe }}</p>
+                      
+                            <p class="card-text fs-5" style="color:yellow">Read More</p>
+                      
+                          </div>
+                        </a>
+                        </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+  
+</section>
+<!-- Content body End -->
+
+
+<!-- Footer Section -->
+<section id="footer" class="footer">
+    {% include 'core/footer.html' %}
+</section>
+<!-- Footer Section End -->
+
+</body>
+</html>

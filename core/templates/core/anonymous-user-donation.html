@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="row">
+  <div class="col-sm-7">
+  <p><a  class="btn btn-primary" href="{% url 'login-user' %}">Login</a> to view your donations.</p>
+  <p>Or donate anonymously.</p>
+  <p>Signing up helps you keep track of your donations on our site.</p>
+
+  </div>
+  <div class="col-sm-5 bg-light rounded">
+      <h2>New Donation</h2>
+
+   <form method="POST" action="{% url 'donate' %}">
+           {% csrf_token %}
+    <div>
+
+      <div class="p-2">
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" placeholder="location" name="location" id="location">
+      </div>
+
+      <div class="p-2">
+          <label for="contact_number" class="form-label">Contact Number:</label>
+          <input type="text" placeholder="Enter your contact number" name="contact_number" id="contact_number">
+      </div>
+
+      <div class="p-2">
+          <label for="amount_donated" class="form-label">Amount to donate:</label>
+          <input type="number" placeholder="Enter amount to donate" name="amount_donated" id="amount_donated">
+      </div>
+
+      <div class="p-2 text-center">
+        <input class="btn" style="background-color: #0000A3; color: aliceblue;" type="submit" value="Donate"/>
+      </div>
+     </div>
+    </form>
+    
+  </div>
+  </div>
+  <br>
+
+</div>

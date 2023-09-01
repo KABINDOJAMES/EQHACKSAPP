@@ -1,0 +1,91 @@
+{% extends 'blog/main.html' %} 
+
+{% block title %}{{ post.title }}{% endblock %}
+ 
+{% block keywords %}{{ post.keywords }}{% endblock %}
+
+{% block description %}{{ post.description }}{% endblock %}
+
+{% block social_media_icon %}{% if post.image %}{{ post.image.url }}{% else %}{{ post.image_url }}{% endif %}{% endblock %}
+
+{% block body %}
+<div class="container shadow-sm bg-light">
+<div id="news-title">
+    <h1 class="text-center">{{ post.title }}</h1>
+</div>
+
+ <div id="image-div container">
+   {% if post.image %}
+      <div><img class="card-img-top" height="300" width="50" src="{{ post.image.url }}" alt="{{ post.alt }}"/></div>
+   {% else %}
+      <div><img class="card-img-top" height="300" width="50" src="{{ post.image_url }}" alt="{{ post.alt }}"/></div>
+   {% endif %}
+ </div>
+
+ <div id="content">
+    {{ post.content | safe }}
+ </div>
+
+<div class="container col-sm-7 text-center">
+   <br><br>
+   <ul class="list-group">
+    <li class="list-group-item list-group-item-primary">Post was updated {{ post.updated_on | timesince }} ago. | {{post.views}} views.</li>
+   </ul>
+</div>
+</div>
+<br>                    
+{% endblock %}
+
+{% block rightpanel %}
+<div class="col-sm-3" >
+   <h3 class="text-center">Recent News</h3>
+   {% for newsarticle in newsarticles %}
+
+   <div class="container rounded bg-light" style="border: 4px solid #0000A3;">
+       <br>
+       <a href="{% url 'news-detail' newsarticle.slug %}" style="color:#0000A3" class="text-decoration-none" onMouseOver="this.style.color='#000000'"
+       onMouseOut="this.style.color='#0000A3'">
+           {% if newsarticle.image %}
+           <img class="card-img-top" src="{{ newsarticle.image.url }}" alt="{{ newsarticle.alt }}"/>
+           {% else %}
+           <img class="card-img-top" src="{{ newsarticle.image_url }}" alt="{{ newsarticle.alt }}"/>
+           {% endif %}
+           <br>
+           <h3 class="text-center">{{ newsarticle.title }}</h3>
+       </a>
+   </div>
+   <hr>
+   {% endfor %}
+ </div>
+{% endblock %}
+
+{% block comment %}
+     {% include 'blog/comment.html' %}                
+{% endblock %}  
+                  
+{% block related %}
+<div>
+    <h3 class="text-center">More from us</h3>
+
+    <div class="row container">
+       {% for related_post in related_posts %}
+      <div class="col-sm-3 bg-light p-1 card border" style="border: 3px solid #0000A3;">
+         <a href="{% url 'posts-detail' related_post.slug %}" style="color:#0000A3" class="text-decoration-none" onMouseOver="this.style.color='black'"
+         onMouseOut="this.style.color='#0000A3'">
+             {% if related_post.image %}
+             <img class="card-img-top" height="250" alt="{{ related_post.alt }}" src="{{ related_post.image.url }}"/>
+             {% else %}
+             <img class="card-img-top" height="250" alt="{{ related_post.alt }}" src="{{ related_post.image_url }}"/>
+             {% endif %}
+             <br>
+             <h3 class="fs-6">{{ related_post.title }}</h3>
+             <p>READ MORE ...</p>
+         </a>
+      </div>
+        
+      {% endfor %}
+         <br>
+    </div>    
+</div>
+                  
+{% endblock %}

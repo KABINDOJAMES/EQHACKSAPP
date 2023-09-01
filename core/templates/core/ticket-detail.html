@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    {% include 'core/navbar.html' %}
+
+    <div class="container text-center">
+        <div class="col-sm-4 rounded">
+          {% if messages %}
+          <ul class="list-group">
+           {% for message in messages %}
+           <li class="list-group-item active">{{message}}</li>
+           {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7 fs-5">
+            <div class="container text-center">
+            <h1>{{ ticket.title }}</h1>
+            <p class="btn btn-primary">Person affected contact <strong>{{ ticket.affected_person_contact }}</strong></p> 
+            <p class="btn btn-primary">Ticket status <strong>{{ ticket.status }} </strong></p> 
+            <p class="btn btn-primary">Advisor assigned <strong>{{ ticket.advisor_assigned }} </strong></p>  
+            <h2>Ticket description</h2>
+            <div class="container bg-light rounded" style="border: 2px solid #0000A3;">
+                {{ ticket.description }}
+            </div>
+            <br>
+            </div>
+
+        </div>
+
+        <div class="col-sm-5">
+            <div class="container">
+                {% if ticket.status == "inprogress" %}
+                <h2 class="text-center">Write a feedback.</h2>
+
+                <div class="comment-form fs-5">
+                    <div>
+                     <form method="POST" action="">
+                        {% csrf_token %}
+                        <textarea class="form-control" rows="3" placeholder="Type your feedback ..." id="content" name="content" required></textarea>
+                        <br>
+                        <input class="btn" style="background-color: #0000A3; color: aliceblue;" type="submit" value="submit">
+                     </form>
+                    </div>
+                </div>
+
+                <h3 class="text-center">Your previous feedback</h3>
+                {% for previous_feedback in previous_feedbacks %}
+                <div class="container col-sm-10 bg-light rounded p-1" style="border: 2px solid #0000A3;">
+                <p>{{ previous_feedback.content }}</p>
+                <p>{{ previous_feedback.date_created }}</p>
+
+                {% if previous_feedback.reply and previous_feedback.reply.strip %}
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p><strong>Advisor:</strong></p>
+                        </div>
+                        <div class="col-sm-9 rounded">
+                            <p>{{ previous_feedback.reply }}</p>
+                        </div>
+                    </div>  
+                </div>
+                {% endif %}
+                </div>
+                <br>
+                {% empty %}
+                <h3 class="text-center">No feedback submitted.</h3>
+                {% endfor %}
+
+                {% else %}
+                <br>
+                <h2 class="text-center fs-4">Feedback submission not available for tickets in open or closed status.</h2>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'core/footer.html' %}
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body class="fs-5">
+   {% include 'core/navbar.html' %}
+  <h1 class="text-center">View your tickets below.</h1>
+  
+  <div class="row">
+    <div class="col-sm-9">
+    <div class="container">
+      <div class="container text-center">
+        <div class="col-sm-4 rounded">
+          {% if messages %}
+          <ul class="list-group">
+           {% for message in messages %}
+           <li class="list-group-item active">{{message}}</li>
+           {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <div class="container">
+        <table class="table">
+            <h3 class="text-center">Tickets List</h3>
+            <thead class="table-light fs-6">
+              <tr>
+                <th scope="col">Ticket Id</th>
+                <th scope="col">Assigned Advisor</th>
+                <th scope="col">Open Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">About</th>
+              </tr>
+            </thead>
+            {% for ticket in tickets %}
+            <tbody class="table-light">
+              <tr>
+                <td>{{ ticket.ticket_id }}</td>
+                <td>{{ ticket.advisor_assigned }}</td>
+                <td>{{ ticket.open_date }}</td>
+                <td class="{% if ticket.status == 'open' %}text-primary{% elif ticket.status == 'inprogress' %}text-info{% else %}text-success{% endif %}">{{ ticket.status }}</td>
+                <td><a href="{% url 'ticket-detail' ticket.ticket_id %}">View</a></td>
+              </tr>
+
+              {% empty %}
+              <p>You have not opened any tickets yet.</p>
+            {% endfor %}  
+            </tbody>
+          </table>
+        </div>
+        </div>
+          <br>
+          <a href="{% url 'new-ticket' %}" class="btn btn-primary">Create New Ticket</a>
+          <br>
+          <br>
+    </div>
+    </div>
+    <div class="col-sm-3">
+      <h3 class="text-center">Daily Notifications</h3>
+      <div class="container">
+        {% for notification in notifications %}
+        <div class="container bg-light rounded" style="border: 2px solid #0000A3;">
+         <p>{{ notification.content }}</p>
+        </div>
+        <br>
+        {% empty %}
+        <p>No new notifications today.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+    {% include 'core/footer.html' %}
+</body>
+</html>

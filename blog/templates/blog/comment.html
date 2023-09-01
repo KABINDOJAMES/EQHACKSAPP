@@ -1,0 +1,51 @@
+<br>
+<div class="row container bg-light shadow-sm">
+    <h2 class="text-center">Comments</h2>
+    <div class="col-sm-4">
+
+        <div class="comment-form fs-6">
+            <div>
+             <form method="POST" action="">
+                {% csrf_token %}
+                <label for="comment-owner">Comment as:</label>
+                <input type="text" placeholder="name" name="owner" id="comment-owner" required>
+                <br><br>
+                <textarea class="form-control" rows="3" placeholder="Type your comment ..." id="comment" name="body"></textarea>
+                <input class="btn" style="background-color: #0000A3; color: aliceblue;" type="submit" value="comment">
+             </form>
+            </div>
+        </div>
+
+   </div> 
+    
+    <div class="col-sm-8 fs-6">
+        {% for comment in comments %}
+          
+            <div>
+                <p>Comment by <strong>{{ comment.owner }}</strong>  {{ comment.created_on | timesince }} ago.</p>
+                <p>{{ comment.body }}</p> 
+                {% if comment.reply and comment.reply.strip %}
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p><strong>Admin</strong></p>
+                        </div>
+                        <div class="col-sm-9 rounded" style="background-color: #0000A3; color: aliceblue;">
+                            <p>{{ comment.reply }}</p>
+                        </div>
+                    </div>  
+                </div>
+                {% endif %}
+            </div>  
+            
+            <hr> 
+        {% empty %} 
+
+            <div class="text-center fs-5">
+            <p>No comments</p>   
+            </div> 
+
+        {% endfor %}    
+    </div>                      
+</div>
+<br>

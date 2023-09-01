@@ -1,0 +1,35 @@
+<div class="box" id="contact">
+
+    <form action="{% url 'contact-us' %}" method="post" class="php-email-form">
+      {% csrf_token %}
+      <div class="row gy-4">
+
+        <div class="col-md-6">
+          <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+        </div>
+
+        <div class="col-md-6">
+          <input type="email" class="form-control" name="email" placeholder="Your Email">
+        </div>
+
+        <div class="col-md-12">
+          <input type="text" class="form-control" name="contact_number" placeholder="Your Contact Number" required>
+        </div>
+
+        <div class="col-md-12">
+          <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+        </div>
+
+        <div class="col-md-12">
+          <textarea class="form-control" name="message" rows="3" placeholder="Message" required></textarea>
+        </div>
+
+        <div class="col-md-12 text-center">
+
+          <input class="btn" style="background-color: #0000A3; color: aliceblue;" type="submit" name="contactform" value="Send Message"/>
+        </div>
+
+      </div>
+    </form>
+
+  </div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load humanize %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="{% block social_media_icon %}{% endblock %}">
+    <link rel="icon" type="image/x-icon" href="/media/uploads/kplclogo.png">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+    <meta name="keywords" content="{% block keywords %} {% endblock %}">
+    <meta name="description" content="{% block description %} {% endblock%}">
+  
+</head>
+<body>
+
+<!-- Navbar Section -->
+<section>
+    {% include 'core/navbar.html' %}
+</section>
+<!-- Navbar Section End -->
+
+<!-- content body -->
+<section id="body" class="fs-5">
+
+  <div class="container text-center">
+    <div class="col-sm-4 rounded">
+      {% if messages %}
+      <ul class="list-group">
+       {% for message in messages %}
+       <li class="list-group-item active">{{message}}</li>
+       {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  
+    <div class="row">
+      
+      <div class="col-sm-9">
+          {% block body %} 
+          {% endblock %}
+        <hr>
+
+      </div>
+
+      {% block rightpanel %}
+      
+      {% endblock %}
+
+    </div>
+    <div class="container">
+      {% block related %}     
+      {% endblock %}
+
+      {% block comment %}
+      {% endblock %}
+    </div>
+  
+</section>
+<!-- Content body End -->
+
+<!-- Content body End -->
+
+<!-- Contact And Email Subscribe -->
+<section id="contact" class="contact bg-light">
+
+    <div class="container" data-aos="fade-up" style="color: #0000A3;">
+  
+      <header class="section-header text-center">
+        <h2>Contact Us</h2>
+        <p>Our team is ready to serve you.</p>
+      </header>
+  
+      <div class="row">
+  
+        <div class="col-lg-6 mt-4 mt-lg-0 shadow p-4 mb-4 bg-white" data-aos="fade-up" data-aos-delay="600">
+          {% include 'core/contact-us.html' %}
+        </div>
+  
+        <div class="col-lg-6 mt-4 mt-lg-0 shadow p-4 mb-4 bg-white" data-aos="fade-up" data-aos-delay="400">
+          {% include 'blog/subscribe.html' %}
+        </div>
+  
+      </div>
+  
+    </div>  
+</section>
+<!-- Contact And Email Subscribe End-->
+
+<!-- Footer Section -->
+<section id="footer" class="footer">
+    {% include 'core/footer.html' %}
+</section>
+<!-- Footer Section End -->
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="box">
+
+    <div>
+     <form method="POST" action="{% url 'subscribe' %}">
+             {% csrf_token %}
+      <div>
+
+        <div class="p-2 text-center">
+          <h2 style="color: #0000A3;">Get weekly updates.</h2>
+          <h2 style="color: #0000A3;">From our professional advisors.</h2>
+        </div>
+      
+        <div class="p-2">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" placeholder="name" name="name" id="name" required>
+        </div>
+
+        <div class="p-2">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" placeholder="email" name="email" id="email" required>
+        </div>
+
+        <div class="p-2">
+          <input class="btn" style="background-color: #0000A3; color: aliceblue;" type="submit" value="subscribe"/>
+        </div>
+      
+       </div>
+      </form>
+    </div>
+
+</div>

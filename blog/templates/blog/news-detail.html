@@ -1,0 +1,83 @@
+{% extends 'blog/main.html' %} 
+
+{% load humanize %}
+
+{% block title %}{{ newsarticle.title }}{% endblock %}
+
+{% block keywords %}{{ newsarticle.keywords }}{% endblock %}
+
+{% block description %}{{ newsarticle.description }}{% endblock %}
+
+{% block social_media_icon %}{% if newsarticle.image %}{{ newsarticle.image.url }}{% else %}{{ newsarticle.image_url }}{% endif %}{% endblock %}
+
+{% block body %}
+<div class="container">
+<div id="news-title">
+    <h1>{{ newsarticle.title }}</h1>
+    <p>{{ newsarticle.created_on | timesince }} ago.</p>
+ </div>
+
+ <div id="image-div">
+   {% if newsarticle.image %}
+      <div><img height="300" width="50" src="{{ newsarticle.image.url }}" alt="{{ newsarticle.alt }}" class="card-img-top"/></div>
+   {% else %}
+      <div><img height="300" width="50" src="{{ newsarticle.image_url }}" alt="{{ newsarticle.alt }}" class="card-img-top"/></div>
+   {% endif %}
+ </div>
+
+ <div id="content">
+    {{ newsarticle.content | safe }}
+ </div>
+
+<div class="container col-sm-8 text-center">
+   <br><br>
+   <ul class="list-group">
+    <li class="list-group-item list-group-item-primary">Article was created {{ newsarticle.created_on | timesince }} ago. | {{newsarticle.views}} views.</li>
+   </ul>
+
+</div>
+
+</div>
+<br>                    
+{% endblock %}
+
+{% block rightpanel %}
+<div class="col-sm-3">
+  <p>Latest Social Media Posts Would be here.</p>
+ </div>
+{% endblock %}
+
+{% block comment %}
+     {% include 'blog/comment.html' %}                
+{% endblock %}  
+                  
+{% block related %}
+<div>
+    <h3 class="text-center">More from us</h3>
+
+    <div class="container">
+       {% for related_article in related_articles %}
+        <div class="row">
+          <div class="col-3 rounded card border" style="border: 3px solid #0000A3;">
+            <a href="{% url 'news-detail' related_article.slug %}" style="color:#0000A3" class="text-decoration-none" onMouseOver="this.style.color='black'"
+            onMouseOut="this.style.color='#0000A3'">
+            
+            <div id="image-div">
+               {% if related_article.image %}
+                  <div><img src="{{ related_article.image.url }}" alt="{{ related_article.alt }}" class="card-img-top rounded"/></div>
+               {% else %}
+                  <div><img src="{{ related_article.image_url }}" alt="{{ related_article.alt }}" class="card-img-top rounded"/></div>
+               {% endif %}
+            </div>
+
+            <h3 class="text-center">{{ related_article.title }}</h3>
+           </div>         
+         </a>
+        </div>
+        
+        {% endfor %}
+         <br>
+    </div>    
+</div>
+                  
+{% endblock %}
